@@ -181,7 +181,7 @@ export default function Home() {
               UI PROJECTS
             </h1>
             <p className="quote-text text-lg md:text-xl text-black mt-4 mb-4 font-serif">
-              "Check them out—just click below."
+              &quot;Check them out—just click below.&quot;
             </p>
             <a
               href="#"
@@ -212,13 +212,13 @@ export default function Home() {
 
         {/* Footer */}
         <footer className="flex justify-between items-center p-8">
-          <div className=" text-black text-sm md:text-base font-jayco bg-[#e8e8e8] px-8 py-2 rounded-3xl">
+          <div className="text-black text-sm md:text-base font-jayco bg-[#e8e8e8] px-8 py-2 rounded-3xl">
             HELLO HOW ARE YOU
           </div>
           <div className="flex items-center gap-4">
             <a
               href="#"
-              className=" text-black hover:text-gray-600 transition-colors bg-[#e8e8e8] py-2 px-2 rounded-full"
+              className="text-black hover:text-gray-600 transition-colors bg-[#e8e8e8] py-2 px-2 rounded-full"
               aria-label="Instagram"
             >
               <Instagram className="w-4 h-4 md:w-6 md:h-6" />
