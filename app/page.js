@@ -1,103 +1,299 @@
-import Image from "next/image";
+"use client"
+import Image from "next/image"
+import { Instagram, ArrowRight, X } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import icon from "@/public/images/icon.png"
+
+const portfolioItems = [
+  { name: "grained js", href: "https://grainedjs.vercel.app/" },
+  { name: "Biosynthesis", href: "https://progbiz-three.vercel.app/" },
+  { name: "TSEEP", href: "https://texol-pi.vercel.app/" },
+  { name: "The Design Agency", href: "https://supercode-task.vercel.app/" },
+  { name: "Knowme (portfolio)", href: "https://knowme-pi.vercel.app" },
+  { name: "Educare", href: "https://noviindus-task.vercel.app" },
+]
+
+const rightColumnItems = [
+  { name: "Wisetree", href: "https://acodex-delta.vercel.app" },
+  { name: "Filter-ecom", href: "https://appscrip-task-priyanandan.vercel.app" },
+  { name: "Findaboutme", subtitle: "(Bleibtgleich.)", href: "https://findoutabout-me.vercel.app" },
+]
+
+const animateText = (element) => {
+  if (element) {
+    const text = element.textContent || ""
+    const chars = text.split("")
+    element.innerHTML = ""
+
+    chars.forEach((char, index) => {
+      const span = document.createElement("span")
+      span.textContent = char === " " ? "\u00A0" : char
+      span.style.opacity = "0"
+      span.style.display = "inline-block"
+      span.style.transition = "opacity 0.5s ease-out"
+      element.appendChild(span)
+
+      // Animate each character with random delay
+      setTimeout(
+        () => {
+          span.style.opacity = "1"
+        },
+        Math.random() * 1000 + index * 70,
+      )
+    })
+  }
+}
+
+const animateElements = () => {
+  // Animate footer elements with stagger
+  const footerElements = document.querySelectorAll(".footer-element")
+  footerElements.forEach((element, index) => {
+    const el = element
+    el.style.opacity = "0"
+    el.style.transform = "translateY(20px)"
+    el.style.transition = "opacity 0.8s ease-out, transform 0.8s ease-out"
+
+    setTimeout(
+      () => {
+        el.style.opacity = "1"
+        el.style.transform = "translateY(0)"
+      },
+      1500 + index * 200,
+    )
+  })
+
+  // Animate main image with gentle float
+  const mainImage = document.querySelector(".main-image")
+  if (mainImage) {
+    mainImage.style.animation = "float 4s ease-in-out infinite"
+  }
+
+  // Animate quote text with fade in
+  const quoteText = document.querySelector(".quote-text")
+  if (quoteText) {
+    quoteText.style.opacity = "0"
+    quoteText.style.transform = "translateY(15px)"
+    quoteText.style.transition = "opacity 1s ease-out, transform 1s ease-out"
+
+    setTimeout(() => {
+      quoteText.style.opacity = "1"
+      quoteText.style.transform = "translateY(0)"
+    }, 800)
+  }
+
+  // Animate click link with subtle pulse
+  const clickLink = document.querySelector(".click-link")
+  if (clickLink) {
+    clickLink.style.animation = "pulse 3s ease-in-out infinite"
+  }
+}
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalAnimating, setIsModalAnimating] = useState(false)
+  const portfolioTextRef = useRef(null)
+  const uiProjectsTextRef = useRef(null)
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+  useEffect(() => {
+    if (portfolioTextRef.current) {
+      animateText(portfolioTextRef.current)
+    }
+    if (uiProjectsTextRef.current) {
+      // Delay UI PROJECTS animation slightly
+      setTimeout(() => {
+        animateText(uiProjectsTextRef.current)
+      }, 300)
+    }
+
+    animateElements()
+  }, [])
+
+  const openModal = (e) => {
+    e.preventDefault()
+    setIsModalOpen(true)
+    setIsModalAnimating(true)
+
+    // Reset animation state after animation completes
+    setTimeout(() => {
+      setIsModalAnimating(false)
+    }, 400)
+  }
+
+  const closeModal = () => {
+    setIsModalAnimating(true)
+
+    // Wait for animation to complete before hiding modal
+    setTimeout(() => {
+      setIsModalOpen(false)
+      setIsModalAnimating(false)
+    }, 300)
+  }
+
+  return (
+    <>
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+        }
+        
+        .modal-backdrop {
+          opacity: 0;
+          transition: opacity 0.3s ease-out;
+        }
+        
+        .modal-backdrop.show {
+          opacity: 1;
+        }
+        
+        .modal-backdrop.hide {
+          opacity: 0;
+        }
+        
+        .modal-content {
+          opacity: 0;
+          transform: scale(0.9) translateY(20px);
+          transition: opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .modal-content.show {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+        
+        .modal-content.hide {
+          opacity: 0;
+          transform: scale(0.9) translateY(20px);
+          transition: opacity 0.3s ease-in, transform 0.3s ease-in;
+        }
+      `}</style>
+
+      <div className="min-h-screen bg-stone-100 flex flex-col">
+        {/* Header */}
+        <header className="flex justify-between items-start p-8">
+          <div>
+            <h1 ref={uiProjectsTextRef} className="text-6xl font-serif text-black leading-tight">
+              UI PROJECTS
+            </h1>
+            <p className="quote-text text-lg md:text-xl text-black mt-4 mb-4 font-serif">
+              "Check them out—just click below."
+            </p>
+            <a
+              href="#"
+              onClick={openModal}
+              className="click-link text-red-500 text-lg md:text-xl hover:text-red-600 transition-colors"
+            >
+              [ Click Here ]
+            </a>
+          </div>
+          <div ref={portfolioTextRef} className="text-black text-lg md:text-xl font-serif">
+            PortFoLio
+          </div>
+        </header>
+
+        {/* Main Content */}
+        <main className="flex-1 flex items-center justify-center">
+          <div className="relative">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src={icon}
+              alt="3D Character with pink balloons"
+              width={290}
+              height={290}
+              priority
+              className="main-image"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          </div>
+        </main>
+
+        {/* Footer */}
+        <footer className="flex justify-between items-center p-8">
+          <div className=" text-black text-sm md:text-base font-jayco bg-[#e8e8e8] px-8 py-2 rounded-3xl">
+            HELLO HOW ARE YOU
+          </div>
+          <div className="flex items-center gap-4">
+            <a
+              href="#"
+              className=" text-black hover:text-gray-600 transition-colors bg-[#e8e8e8] py-2 px-2 rounded-full"
+              aria-label="Instagram"
+            >
+              <Instagram className="w-4 h-4 md:w-6 md:h-6" />
+            </a>
+            <a
+              href="#"
+              className="footer-element text-black text-sm md:text-base hover:text-gray-600 transition-colors py-2 px-8 bg-[#e8e8e8] rounded-3xl"
+            >
+              Email
+            </a>
+          </div>
+        </footer>
+
+        {/* Modal */}
+        {isModalOpen && (
+          <div
+            className={`fixed inset-0 bg-white/40 flex items-center justify-center z-50 modal-backdrop ${
+              isModalAnimating ? "hide" : "show"
+            }`}
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+            <div
+              className={`bg-white bg-opacity-50 p-8 md:p-12 max-w-5xl w-full h-[85vh] overflow-hidden relative modal-content ${
+                isModalAnimating ? "hide" : "show"
+              }`}
+            >
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition-all hover:scale-110"
+                aria-label="Close modal"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 h-full">
+                <div className="space-y-4 overflow-hidden">
+                  {portfolioItems.map((item, index) => (
+                    <div key={index} className="group">
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-between py-3 border-b border-gray-300 hover:border-gray-400 transition-colors"
+                      >
+                        <h2 className="text-xl md:text-2xl font-serif text-gray-900 group-hover:text-gray-700 transition-colors">
+                          {item.name}
+                        </h2>
+                        <ArrowRight className="w-4 h-4 text-pink-500 group-hover:translate-x-1 transition-transform" />
+                      </a>
+                    </div>
+                  ))}
+                </div>
+                <div className="space-y-4 overflow-hidden">
+                  {rightColumnItems.map((item, index) => (
+                    <div key={index} className="group">
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-between py-3 border-b border-gray-300 hover:border-gray-400 transition-colors"
+                      >
+                        <h2 className="text-xl md:text-2xl font-serif text-gray-900 group-hover:text-gray-700 transition-colors">
+                          {item.name}
+                          {item.subtitle && (
+                            <span className="ml-1 underline decoration-1 underline-offset-2">{item.subtitle}</span>
+                          )}
+                        </h2>
+                        <ArrowRight className="w-4 h-4 text-pink-500 group-hover:translate-x-1 transition-transform" />
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  )
 }

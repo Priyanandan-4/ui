@@ -4,6 +4,20 @@
   --background: #ffffff;
   --foreground: #171717;
 }
+  @font-face {
+  font-family: "jayco";
+  src: url("/font/jaycons.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+
+.font-jayco{
+  font-family: "jayco", sans-serif;
+}
+
 
 @theme inline {
   --color-background: var(--background);
