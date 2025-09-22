@@ -1,8 +1,6 @@
 "use client"
-import Image from "next/image"
-import { Instagram, ArrowRight, X } from "lucide-react"
-import { useState, useEffect, useRef } from "react"
-import icon from "@/public/images/icon.png"
+import { ExternalLink, X } from "lucide-react"
+import { useState } from "react"
 
 const portfolioItems = [
   { name: "grained js", href: "https://grainedjs.vercel.app/" },
@@ -19,281 +17,128 @@ const rightColumnItems = [
   { name: "Findaboutme", subtitle: "(Bleibtgleich.)", href: "https://findoutabout-me.vercel.app" },
 ]
 
-const animateText = (element) => {
-  if (element) {
-    const text = element.textContent || ""
-    const chars = text.split("")
-    element.innerHTML = ""
-
-    chars.forEach((char, index) => {
-      const span = document.createElement("span")
-      span.textContent = char === " " ? "\u00A0" : char
-      span.style.opacity = "0"
-      span.style.display = "inline-block"
-      span.style.transition = "opacity 0.5s ease-out"
-      element.appendChild(span)
-
-      // Animate each character with random delay
-      setTimeout(
-        () => {
-          span.style.opacity = "1"
-        },
-        Math.random() * 1000 + index * 70,
-      )
-    })
-  }
-}
-
-const animateElements = () => {
-  // Animate footer elements with stagger
-  const footerElements = document.querySelectorAll(".footer-element")
-  footerElements.forEach((element, index) => {
-    const el = element
-    el.style.opacity = "0"
-    el.style.transform = "translateY(20px)"
-    el.style.transition = "opacity 0.8s ease-out, transform 0.8s ease-out"
-
-    setTimeout(
-      () => {
-        el.style.opacity = "1"
-        el.style.transform = "translateY(0)"
-      },
-      1500 + index * 200,
-    )
-  })
-
-  // Animate main image with gentle float
-  const mainImage = document.querySelector(".main-image")
-  if (mainImage) {
-    mainImage.style.animation = "float 4s ease-in-out infinite"
-  }
-
-  // Animate quote text with fade in
-  const quoteText = document.querySelector(".quote-text")
-  if (quoteText) {
-    quoteText.style.opacity = "0"
-    quoteText.style.transform = "translateY(15px)"
-    quoteText.style.transition = "opacity 1s ease-out, transform 1s ease-out"
-
-    setTimeout(() => {
-      quoteText.style.opacity = "1"
-      quoteText.style.transform = "translateY(0)"
-    }, 800)
-  }
-
-  // Animate click link with subtle pulse
-  const clickLink = document.querySelector(".click-link")
-  if (clickLink) {
-    clickLink.style.animation = "pulse 3s ease-in-out infinite"
-  }
-}
-
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isModalAnimating, setIsModalAnimating] = useState(false)
-  const portfolioTextRef = useRef(null)
-  const uiProjectsTextRef = useRef(null)
-
-  useEffect(() => {
-    if (portfolioTextRef.current) {
-      animateText(portfolioTextRef.current)
-    }
-    if (uiProjectsTextRef.current) {
-      // Delay UI PROJECTS animation slightly
-      setTimeout(() => {
-        animateText(uiProjectsTextRef.current)
-      }, 300)
-    }
-
-    animateElements()
-  }, [])
 
   const openModal = (e) => {
     e.preventDefault()
     setIsModalOpen(true)
-    setIsModalAnimating(true)
-
-    // Reset animation state after animation completes
-    setTimeout(() => {
-      setIsModalAnimating(false)
-    }, 400)
   }
 
   const closeModal = () => {
-    setIsModalAnimating(true)
-
-    // Wait for animation to complete before hiding modal
-    setTimeout(() => {
-      setIsModalOpen(false)
-      setIsModalAnimating(false)
-    }, 300)
+    setIsModalOpen(false)
   }
 
   return (
-    <>
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-        }
-        
-        @keyframes pulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-        }
-        
-        .modal-backdrop {
-          opacity: 0;
-          transition: opacity 0.3s ease-out;
-        }
-        
-        .modal-backdrop.show {
-          opacity: 1;
-        }
-        
-        .modal-backdrop.hide {
-          opacity: 0;
-        }
-        
-        .modal-content {
-          opacity: 0;
-          transform: scale(0.9) translateY(20px);
-          transition: opacity 0.4s ease-out, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        
-        .modal-content.show {
-          opacity: 1;
-          transform: scale(1) translateY(0);
-        }
-        
-        .modal-content.hide {
-          opacity: 0;
-          transform: scale(0.9) translateY(20px);
-          transition: opacity 0.3s ease-in, transform 0.3s ease-in;
-        }
-      `}</style>
-
-      <div className="min-h-screen bg-stone-100 flex flex-col">
-        {/* Header */}
-        <header className="flex justify-between items-start p-8">
+    <div className="h-screen overflow-hidden flex flex-col bg-background text-foreground">
+      {/* Header */}
+      <header className="flex justify-between items-start p-8 md:p-12">
+        <div className="space-y-6">
           <div>
-            <h1 ref={uiProjectsTextRef} className="text-6xl font-serif text-black leading-tight">
-              UI PROJECTS
-            </h1>
-            <p className="quote-text text-lg md:text-xl text-black mt-4 mb-4 font-serif">
-              &quot;Check them out—just click below.&quot;
+            <h1 className="text-lg font-medium text-foreground">Priyanandan</h1>
+            <p className="text-muted-foreground">Frontend Developer</p>
+          </div>
+        </div>
+
+        <nav className="flex items-center gap-8 text-sm">
+          <button onClick={openModal} className="text-foreground hover:text-muted-foreground transition-colors">
+            Work
+          </button>
+          <button className="text-foreground hover:text-muted-foreground transition-colors">Information</button>
+          <button className="text-foreground hover:text-muted-foreground transition-colors">Contact</button>
+        </nav>
+      </header>
+
+      {/* Main Content */}
+      <main className="px-8 md:px-12 py-12 flex-grow">
+        <div className="max-w-2xl space-y-8">
+          <p className="text-muted-foreground text-sm">Welcome 👋</p>
+
+          <div className="space-y-6">
+            <p className="text-lg leading-relaxed text-foreground">
+              I’m a self-taught frontend developer with a passion for creating engaging, user-friendly web experiences.
+              My UI journey started with small projects, and over time I’ve built and refined designs that focus on both
+              functionality and aesthetics. Every project you see here reflects how I learn, improve, and experiment with
+              modern web technologies.
             </p>
-            <a
-              href="#"
+          </div>
+
+          <div className="pt-8">
+            <p className="text-muted-foreground text-sm mb-8">My UI Journey</p>
+
+            <button
               onClick={openModal}
-              className="click-link text-red-500 text-lg md:text-xl hover:text-red-600 transition-colors"
+              className="group flex items-center gap-2 text-foreground hover:text-muted-foreground transition-colors"
             >
-              [ Click Here ]
-            </a>
+              <span>Works</span>
+              <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
           </div>
-          <div ref={portfolioTextRef} className="text-black text-lg md:text-xl font-serif">
-            PortFoLio
-          </div>
-        </header>
+        </div>
+      </main>
 
-        {/* Main Content */}
-        <main className="flex-1 flex items-center justify-center">
-          <div className="relative">
-            <Image
-              src={icon}
-              alt="3D Character with pink balloons"
-              width={290}
-              height={290}
-              priority
-              className="main-image"
-            />
-          </div>
-        </main>
+      {/* Footer */}
+      <footer className="px-8 md:px-12 py-6">
+        <div className="flex justify-between items-center text-sm text-muted-foreground">
+          <p>If you’d like to discuss a project or just say hi, feel free to reach out anytime.</p>
+          <button className="bg-foreground text-background px-4 py-2 hover:bg-muted-foreground transition-colors">
+            Contact
+          </button>
+        </div>
+      </footer>
 
-        {/* Footer */}
-        <footer className="flex justify-between items-center p-8">
-          <div className="text-black text-sm md:text-base font-jayco bg-[#e8e8e8] px-8 py-2 rounded-3xl">
-            HELLO HOW ARE YOU
-          </div>
-          <div className="flex items-center gap-4">
-            <a
-              href="#"
-              className="text-black hover:text-gray-600 transition-colors bg-[#e8e8e8] py-2 px-2 rounded-full"
-              aria-label="Instagram"
-            >
-              <Instagram className="w-4 h-4 md:w-6 md:h-6" />
-            </a>
-            <a
-              href="#"
-              className="footer-element text-black text-sm md:text-base hover:text-gray-600 transition-colors py-2 px-8 bg-[#e8e8e8] rounded-3xl"
-            >
-              Email
-            </a>
-          </div>
-        </footer>
-
-        {/* Modal */}
-        {isModalOpen && (
-          <div
-            className={`fixed inset-0 bg-white/40 flex items-center justify-center z-50 modal-backdrop ${
-              isModalAnimating ? "hide" : "show"
-            }`}
-          >
-            <div
-              className={`bg-white bg-opacity-50 p-8 md:p-12 max-w-5xl w-full h-[85vh] overflow-hidden relative modal-content ${
-                isModalAnimating ? "hide" : "show"
-              }`}
-            >
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-background/95 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-background w-full max-w-6xl p-8 md:p-12 h-screen overflow-hidden">
+            <div className="flex justify-between items-start mb-8">
+              <div>
+                <h2 className="text-2xl font-medium text-foreground mb-2">Works</h2>
+                <p className="text-muted-foreground">A collection of my UI/Frontend projects</p>
+              </div>
               <button
                 onClick={closeModal}
-                className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition-all hover:scale-110"
+                className="text-muted-foreground hover:text-foreground transition-colors"
                 aria-label="Close modal"
               >
                 <X className="w-6 h-6" />
               </button>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 h-full">
-                <div className="space-y-4 overflow-hidden">
-                  {portfolioItems.map((item, index) => (
-                    <div key={index} className="group">
-                      <a
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-between py-3 border-b border-gray-300 hover:border-gray-400 transition-colors"
-                      >
-                        <h2 className="text-xl md:text-2xl font-serif text-gray-900 group-hover:text-gray-700 transition-colors">
-                          {item.name}
-                        </h2>
-                        <ArrowRight className="w-4 h-4 text-pink-500 group-hover:translate-x-1 transition-transform" />
-                      </a>
-                    </div>
-                  ))}
-                </div>
-                <div className="space-y-4 overflow-hidden">
-                  {rightColumnItems.map((item, index) => (
-                    <div key={index} className="group">
-                      <a
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-between py-3 border-b border-gray-300 hover:border-gray-400 transition-colors"
-                      >
-                        <h2 className="text-xl md:text-2xl font-serif text-gray-900 group-hover:text-gray-700 transition-colors">
-                          {item.name}
-                          {item.subtitle && (
-                            <span className="ml-1 underline decoration-1 underline-offset-2">{item.subtitle}</span>
-                          )}
-                        </h2>
-                        <ArrowRight className="w-4 h-4 text-pink-500 group-hover:translate-x-1 transition-transform" />
-                      </a>
-                    </div>
-                  ))}
-                </div>
+            </div>
+
+            {/* Projects - two column layout */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12 overflow-y-auto h-[85%] pr-2">
+              {/* Left column (portfolioItems) */}
+              <div className="space-y-8">
+                {portfolioItems.map((item, index) => (
+                  <div key={index} className="group">
+                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="block space-y-2">
+                      <h3 className="text-lg font-medium text-foreground group-hover:text-muted-foreground transition-colors">
+                        {item.name}
+                      </h3>
+                    </a>
+                  </div>
+                ))}
+              </div>
+
+              {/* Right column (rightColumnItems) */}
+              <div className="space-y-8">
+                {rightColumnItems.map((item, index) => (
+                  <div key={index} className="group">
+                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="block space-y-2">
+                      <h3 className="text-lg font-medium text-foreground group-hover:text-muted-foreground transition-colors">
+                        {item.name}{" "}
+                        {item.subtitle && (
+                          <span className="text-muted-foreground text-sm">{item.subtitle}</span>
+                        )}
+                      </h3>
+                    </a>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-        )}
-      </div>
-    </>
+        </div>
+      )}
+    </div>
   )
 }
