@@ -29,6 +29,17 @@ export default function Home() {
     setIsModalOpen(false)
   }
 
+  // Function to handle Contact button click
+  const handleContactClick = () => {
+window.location.href = "mailto:priyanandantx@gmail.com?subject=Hello Priyanandan&body=I want to connect with you!";
+
+  }
+
+  // Function to handle Information button click
+  const handleInformationClick = () => {
+    window.location.href = "https://portfolio-gsap-beta.vercel.app/"
+  }
+
   return (
     <div className="h-screen overflow-hidden flex flex-col bg-background text-foreground">
       {/* Header */}
@@ -44,8 +55,20 @@ export default function Home() {
           <button onClick={openModal} className="text-foreground hover:text-muted-foreground transition-colors">
             Work
           </button>
-          <button className="text-foreground hover:text-muted-foreground transition-colors">Information</button>
-          <button className="text-foreground hover:text-muted-foreground transition-colors">Contact</button>
+          <button
+            onClick={handleInformationClick}
+            className="text-foreground hover:text-muted-foreground transition-colors"
+          >
+            Information
+          </button>
+          <button
+         
+            onClick={handleContactClick}
+            className="text-foreground hover:text-muted-foreground transition-colors"
+          >
+            Contact
+          </button>
+          
         </nav>
       </header>
 
@@ -81,7 +104,10 @@ export default function Home() {
       <footer className="px-8 md:px-12 py-6">
         <div className="flex justify-between items-center text-sm text-muted-foreground">
           <p>If you’d like to discuss a project or just say hi, feel free to reach out anytime.</p>
-          <button className="bg-foreground text-background px-4 py-2 hover:bg-muted-foreground transition-colors">
+          <button
+            onClick={handleContactClick}
+            className="bg-foreground text-background px-4 py-2 hover:bg-muted-foreground transition-colors"
+          >
             Contact
           </button>
         </div>

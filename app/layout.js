@@ -12,7 +12,7 @@ const playfair = Playfair_Display({
 })
 
 export const metadata= {
-  title: "Portfolio",
+  title: "UI PROJECTS",
   description: "Creative portfolio showcase",
   generator: "v0.app",
 }
