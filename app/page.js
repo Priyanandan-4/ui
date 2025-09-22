@@ -51,7 +51,7 @@ window.location.href = "mailto:priyanandantx@gmail.com?subject=Hello Priyanandan
           </div>
         </div>
 
-        <nav className="flex items-center gap-8 text-sm">
+        <nav className="hidden md:flex items-center gap-8 text-sm">
           <button onClick={openModal} className="text-foreground hover:text-muted-foreground transition-colors">
             Work
           </button>
@@ -103,7 +103,7 @@ window.location.href = "mailto:priyanandantx@gmail.com?subject=Hello Priyanandan
       {/* Footer */}
       <footer className="px-8 md:px-12 py-6">
         <div className="flex justify-between items-center text-sm text-muted-foreground">
-          <p>If you’d like to discuss a project or just say hi, feel free to reach out anytime.</p>
+          <p className="hidden md:block">If you’d like to discuss a project or just say hi, feel free to reach out anytime.</p>
           <button
             onClick={handleContactClick}
             className="bg-foreground text-background px-4 py-2 hover:bg-muted-foreground transition-colors"
