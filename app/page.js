@@ -7,14 +7,15 @@ const portfolioItems = [
   { name: "Biosynthesis", href: "https://progbiz-three.vercel.app/" },
   { name: "TSEEP", href: "https://texol-pi.vercel.app/" },
   { name: "The Design Agency", href: "https://supercode-task.vercel.app/" },
-  { name: "Knowme (portfolio)", href: "https://knowme-pi.vercel.app" },
+  { name: "Knowme", subtitle: "(Work in Progress)", href: "https://knowme-pi.vercel.app" },
   { name: "Educare", href: "https://noviindus-task.vercel.app" },
 ]
 
 const rightColumnItems = [
   { name: "Wisetree", href: "https://acodex-delta.vercel.app" },
   { name: "Filter-ecom", href: "https://appscrip-task-priyanandan.vercel.app" },
-  { name: "Findaboutme", subtitle: "(Bleibtgleich.)", href: "https://findoutabout-me.vercel.app" },
+  { name: "Findaboutme", subtitle: "(Bleibtgleich.(WIP))", href: "https://findoutabout-me.vercel.app" },
+  {name:"w- 1st media", href:"https://woxro-task-seven.vercel.app/"}
 ]
 
 export default function Home() {
@@ -29,13 +30,11 @@ export default function Home() {
     setIsModalOpen(false)
   }
 
-  // Function to handle Contact button click
   const handleContactClick = () => {
-window.location.href = "mailto:priyanandantx@gmail.com?subject=Hello Priyanandan&body=I want to connect with you!";
-
+    window.location.href =
+      "mailto:priyanandantx@gmail.com?subject=Hello Priyanandan&body=I want to connect with you!"
   }
 
-  // Function to handle Information button click
   const handleInformationClick = () => {
     window.location.href = "https://portfolio-gsap-beta.vercel.app/"
   }
@@ -52,7 +51,10 @@ window.location.href = "mailto:priyanandantx@gmail.com?subject=Hello Priyanandan
         </div>
 
         <nav className="hidden md:flex items-center gap-8 text-sm">
-          <button onClick={openModal} className="text-foreground hover:text-muted-foreground transition-colors">
+          <button
+            onClick={openModal}
+            className="text-foreground hover:text-muted-foreground transition-colors"
+          >
             Work
           </button>
           <button
@@ -62,13 +64,11 @@ window.location.href = "mailto:priyanandantx@gmail.com?subject=Hello Priyanandan
             Information
           </button>
           <button
-         
             onClick={handleContactClick}
             className="text-foreground hover:text-muted-foreground transition-colors"
           >
             Contact
           </button>
-          
         </nav>
       </header>
 
@@ -103,7 +103,9 @@ window.location.href = "mailto:priyanandantx@gmail.com?subject=Hello Priyanandan
       {/* Footer */}
       <footer className="px-8 md:px-12 py-6">
         <div className="flex justify-between items-center text-sm text-muted-foreground">
-          <p className="hidden md:block">If you’d like to discuss a project or just say hi, feel free to reach out anytime.</p>
+          <p className="hidden md:block">
+            If you’d like to discuss a project or just say hi, feel free to reach out anytime.
+          </p>
           <button
             onClick={handleContactClick}
             className="bg-foreground text-background px-4 py-2 hover:bg-muted-foreground transition-colors"
@@ -137,9 +139,17 @@ window.location.href = "mailto:priyanandantx@gmail.com?subject=Hello Priyanandan
               <div className="space-y-8">
                 {portfolioItems.map((item, index) => (
                   <div key={index} className="group">
-                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="block space-y-2">
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block space-y-2"
+                    >
                       <h3 className="text-lg font-medium text-foreground group-hover:text-muted-foreground transition-colors">
-                        {item.name}
+                        {item.name}{" "}
+                        {item.subtitle && (
+                          <span className="text-red-600 text-sm">{item.subtitle}</span>
+                        )}
                       </h3>
                     </a>
                   </div>
@@ -150,11 +160,16 @@ window.location.href = "mailto:priyanandantx@gmail.com?subject=Hello Priyanandan
               <div className="space-y-8">
                 {rightColumnItems.map((item, index) => (
                   <div key={index} className="group">
-                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="block space-y-2">
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block space-y-2"
+                    >
                       <h3 className="text-lg font-medium text-foreground group-hover:text-muted-foreground transition-colors">
                         {item.name}{" "}
                         {item.subtitle && (
-                          <span className="text-muted-foreground text-sm">{item.subtitle}</span>
+                          <span className="text-red-600 text-sm">{item.subtitle}</span>
                         )}
                       </h3>
                     </a>
